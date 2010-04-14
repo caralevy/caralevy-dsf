@@ -4,8 +4,7 @@
 //
 // Parse->Emit->Reparse. Success if the parsed tree is identical to the reparsed tree.
 //
-// Note, in the Sputnik tests, there are 4 tests that fail, and 2 tests
-// that succeed but have syntax errors. All other tests succeed.
+// Note, in the Sputnik tests, there are 4 tests that fail. All other tests succeed.
 
 var ECMAScript3Test = function() {
 
