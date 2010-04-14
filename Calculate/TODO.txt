@@ -1,0 +1,53 @@
+Parser:
+[ ] Get this working: a=1;++a**8
+[ ] Create an HG project
+[ ] Rename to ECMAScript3Ext
+[ ] Remove alert()
+[ ] 5th root of 32 == 2
+    view-source:http://www.univie.ac.at/future.media/moe/JavaCalc/jcintro.html
+[ ] In the help section, provide a link to http://www.brackeen.com/calculate/
+[ ] Update webpage to look like this
+    - Easier to understand, like this: http://www.google.com/help/calculator.html
+    - "How it works" section
+
+
+Deployment steps for a new version:
+[ ] Test on Mac OS X 10.5, 10.6
+[ ] Update version number in Calc.html, Info.plist
+[ ] Zip Calculate.wdgt
+[ ] Update version number and docs at brackeen.com
+[ ] Update at apple.com
+
+Ports:
+[ ] HTML5 web app, specifically for iPad/iPhone.
+    - Use standard scrollbar, buttons (Can't use AppleClasses because of license)
+    - Tab/Enter keys don't work?
+    - Use HTML5 storage instead of widget prefs?
+    - Alternative to front/back flip
+[ ] Google Gadget, Yahoo Widget, etc.
+
+Ideas requiring a Recursive Descent Parser:
+[ ] Show more advanced error info other than "Syntax Error"
+[ ] Force setting of all new global variables in a sandbox.
+    For example, "i = 42" would be converted to "sandbox.i = 42"
+    Then, all variables and functions in sandbox would be persisted.
+    If not (var (= a 5), then convert (= a 5) to (= (BYFIELD sandbox a) 5)
+[ ] Disallow access of real globals: window, document, widget, all properties in window
+
+
+Other Ideas:
+[ ] Show memory: sort by name, type? (constants, variables, functions)
+[ ] Show memory: delete button next to each var
+[ ] Output: Hex, Decimal, or binary
+[ ] "Clear Memory" (with an undo option)
+[ ] Save/restore input history.
+[ ] matrix math functions
+[ ] help in a separate html file?
+[ ] Option: Do/Don't save memory
+
+Rejected User Requests:
+[-] Map the ^P and ^N [ctrl-P and ctrl-N] keys to 'cursor-up' and 'cursor-down'.
+    Rejected because it acts like "start of line" and "end of line" respectively.
+    Also, there is no "cursor up/down" - there is only scrolling (different from the cursor)
+[-] Locale-specific decimal separator for both input and output ("3,14159") -
+    impossible if lists/functions are allowed
