@@ -253,11 +253,15 @@ ECMAScript3ExtEmitter.prototype.printChildren = function(node, separator, firstI
     }
 
     if (block) {
-        this.out.print("{");
-        this.out.increaseIndent();
-        this.out.println();
+        if (this.includeWhitespace) {
+            this.out.print("{");
+            this.out.increaseIndent();
+            this.out.println();
+        }
+        else {
+            this.out.print("{ ");
+        }
     }
-
     for (var index = 0; index < numChildren; index++) {
         var child = node.getChild(index);
         // print a separator before each printed child (except first)
@@ -276,15 +280,20 @@ ECMAScript3ExtEmitter.prototype.printChildren = function(node, separator, firstI
             }
             this.print(child);
             if (separator === "\n" && this.needsSemicolon(child)) {
-                this.out.print(";");
+                this.out.print("; ");
             }
         }
     }
 
     if (block) {
-        this.out.println();
-        this.out.decreaseIndent();
-        this.out.print("}");
+        if (this.includeWhitespace) {
+            this.out.println();
+            this.out.decreaseIndent();
+            this.out.print("}");
+        }
+        else {
+            this.out.print("} ");
+        }
     }
 }
 
@@ -642,7 +651,7 @@ ECMAScript3ExtEmitter.prototype.print = function(node, forceBlock) {
                 this.out.println();
                 this.out.increaseIndent();
                 this.print(child2);
-                this.out.print(";");
+                this.out.print("; ");
                 this.out.decreaseIndent();
                 this.out.println();
             }
@@ -670,7 +679,7 @@ ECMAScript3ExtEmitter.prototype.print = function(node, forceBlock) {
                 this.out.println();
                 this.out.increaseIndent();
                 this.print(child1);
-                this.out.print(";");
+                this.out.print("; ");
                 this.out.decreaseIndent();
                 this.out.println();
             }
@@ -690,7 +699,7 @@ ECMAScript3ExtEmitter.prototype.print = function(node, forceBlock) {
                 this.out.println();
                 this.out.increaseIndent();
                 this.print(child1);
-                this.out.print(";");
+                this.out.print("; ");
                 this.out.decreaseIndent();
                 this.out.println();
             }
@@ -921,7 +930,7 @@ ECMAScript3ExtEmitter.prototype.print = function(node, forceBlock) {
 
     if (forceBlock) {
         if (this.needsSemicolon(node)) {
-            this.out.print(";");
+            this.out.print("; ");
         }
         this.out.decreaseIndent();
     }

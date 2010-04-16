@@ -40,8 +40,6 @@ CalcWidget.UI = (function() {
         '<div class="answer">4</div>' +
         '<div class="input">2^8</div>' +
         '<div class="answer">256</div>' +
-        '<div class="input">5!</div>' +
-        '<div class="answer">120</div>' +
         '<div class="input">(1+sqrt(5))/2</div>' +
         '<div class="answer">1.618033988749895</div>' +
         '<div class="input">r=1/2</div>' +
@@ -81,6 +79,7 @@ CalcWidget.UI = (function() {
         '<li>Click the <b>M</b> button to view the list of all constants, ' +
             'variables, and functions.</li>' +
         '<li>To delete a variable or function by name, enter "delete <i>name</i>".</li>' +
+        '<li>For more info, <span style="text-decoration: underline;cursor: pointer;" onclick="widget.openURL(\'http://www.brackeen.com/calculate/?version=1.1.5\');">visit the Calculate home page</span>.</li>' +
         '</ul>' +
 
         '<div class="helpHeader">Shortcuts</div>' +
@@ -315,10 +314,10 @@ CalcWidget.UI = (function() {
             for (var i in userVars) {
                 if (userVars.hasOwnProperty(i)) {
                     var name = userVars[i];
-                                        var value = window[name];
-                                        if (typeof window[name] != "function") {
-                                            value = CalcWidget.valueToString(window[name]);
-                                        }
+                    var value = window[name];
+                    if (typeof window[name] != "function") {
+                        value = CalcWidget.valueToString(window[name]);
+                    }
                     html += '<div class="memory"><b>' + name + "</b> = " + value + "</div>";
                 }
             }
@@ -664,7 +663,7 @@ CalcWidget.objectToString = function(obj) {
         if (obj.hasOwnProperty(i)) {
             if (obj[i] !== undefined) {
                 var value = CalcWidget.valueToString(obj[i]);
-                s += i + ":" + value + ", ";
+                s += "\"" + i + "\": " + value + ", ";
             }
         }
     }

@@ -1,13 +1,3 @@
-Next version:
-[ ] Get this working: a=1;++a**8
-[ ] 5th root of 32 == 2
-    view-source:http://www.univie.ac.at/future.media/moe/JavaCalc/jcintro.html
-[ ] In the help section, provide a link to http://www.brackeen.com/calculate/
-[ ] Update webpage
-    - Easier to understand, like this: http://www.google.com/help/calculator.html
-    - "How it works" section
-
-
 Deployment steps for a new version:
 [ ] Test on Mac OS X 10.5, 10.6
 [ ] Update version number in Calc.html, Info.plist
@@ -29,7 +19,13 @@ Ideas requiring a Recursive Descent Parser:
     For example, "i = 42" would be converted to "sandbox.i = 42"
     Then, all variables and functions in sandbox would be persisted.
     If not (var (= a 5), then convert (= a 5) to (= (BYFIELD sandbox a) 5)
-[ ] Disallow access of real globals: window, document, widget, all properties in window
+[ ] Disallow access of real globals: window (including all properties in window, like document and widget),
+ and eval(). Also, check unicode. Dissallow:
+    eval("1+1")
+    eva\u006c("1+1")
+    x = eval;x("1+1")
+    window['eval']("1+1")
+
 [ ] Determine precision of the input and use that as the output. So "1.1 - 1.05" is correct.
 
 

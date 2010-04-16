@@ -6,9 +6,11 @@ Version 1.1.5
 - Numbers with a leading zero are treated as decimal. Example: 0042 == 42
 - Command-C copies the last answer. Make sure nothing is currently
   selected, and press Command-C to copy last numeric answer to the clipboard.
-- Fixed bug where the variable 'i' couldn't be set.
-- Fixed bug where functions inside another block weren't properly persisted.
-- Fixed bug where 'undefined' could be set
+- Fixed bug: the variable 'i' couldn't be set.
+- Fixed bug: 'undefined' could be set
+- Fixed persistence bug: functions inside another block
+- Fixed persistence bug: object literals containing name-value pairs whose name
+  wasn't an identifier
 
 Version 1.1.4 (Nov 25, 2008)
 - Widget dimensions now persistent between sessions.
