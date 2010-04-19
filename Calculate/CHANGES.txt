@@ -1,4 +1,9 @@
-Version 1.1.5
+Version 1.2
+- Now also available as an HTML5 web app.
+- Minor display changes
+- Minor bug fixes
+
+Version 1.1.5 (Apr 15, 2010)
 - Added power operator ^. Example: 2^8 == 256 (If you're a programmer, for xor use >< instead of ^)
 - Added factorial operator !. Example: 5! == 120
 - Added binary input. Example: '0b11011'

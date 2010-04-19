@@ -1,19 +1,10 @@
 [ ] TODO (HTML5 App):
     [ ] Use a new keyhandler
         - answer+1 expansion is broken
-    [ ] Output near the bottom, not near the top (because virtual keyboard causes the top to go off screen)
-    [ ] Get it to work on landscape mode
-    [ ] New keyboard input for touch devices?
-    [ ] NEW UI:
-        - Black background.
-        - Large buttons bug enough for touch (40x40?)
-        - New icon suitable for iPhone
-        - Options/About popup
-        - New Font
-    [ ] Web app - http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html#//apple_ref/doc/uid/TP40002051-CH3-SW3
-        - Caching
-        - Splash screen
-        - Bug: not saving vars
+        - Keys broken on FireFox
+    [ ] Options/About popup
+    [ ] Input box too big on FireFox
+    [ ] iPhone/iPod/iPad: Warning this app isn't suited for keyboard-less devices. Good luck.
 
 Deployment steps for a new version:
 [ ] Test on Mac OS X 10.5, 10.6
@@ -24,6 +15,19 @@ Deployment steps for a new version:
 
 Ports:
 [ ] Google Gadget, Yahoo Widget, etc.
+[ ] iPhone/iPad as HTML5 web app
+    - Not worth the time since there are so many $1 calculators on the store.
+      But it would need:
+        [ ] New UI: Black background, buttons big enough to touch.
+        [ ] New keypad input for touch devices. 0-9, operators, functions.
+            Probably 5x5 buttons taking up the bottom half of the screen.
+            Ability to switch to the normal virtual keyboard (show/hide
+            keyboard by giving textfield focus)
+        [ ] Get it to work on landscape mode
+        [ ] Icon
+        [ ] Splash Screen
+        [ ] Caching (don't reload the entire js every time)
+        [ ] See http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
 
 Ideas requiring a Recursive Descent Parser:
 [ ] Show more advanced error info other than "Syntax Error"

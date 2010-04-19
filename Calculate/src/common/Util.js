@@ -2,17 +2,17 @@ if (typeof CalcWidget == "undefined" || !CalcWidget) {
     var CalcWidget = {};
 }
 
-if (console && console.log) {
+if (typeof console != "undefined" && console.log) {
     CalcWidget.log = function(message) {
         console.log(message);
     }
 }
-else if (print) {
+else if (typeof print != "undefined") {
     CalcWidget.log = function(message) {
         print(message);
     }
 }
-else if (alert) {
+else if (typeof alert != "undefined") {
     CalcWidget.log = function(message) {
         alert(message);
     }

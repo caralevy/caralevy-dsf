@@ -204,6 +204,9 @@ CalcWidget.Calc = (function() {
                 knownMembers.push(i);
             }
         }
+        knownMembers.push("onload"); // Firefox
+        knownMembers.push("onunload"); // Firefox
+        knownMembers.push("CFInstall"); // Chrome frame script
         loadUserVars();
     }
 
