@@ -1,12 +1,13 @@
-
-var CalcWidget = window.CalcWidget || { };
+if (typeof CalcWidget == "undefined" || !CalcWidget) {
+    var CalcWidget = {};
+}
 
 /*
     Evaluate expressions in a "sandbox" so it doesn't have access to
     the private members of CalcWidget.Calc or CalcWidget.UI, and so the user can't
     override members of CalcWidget.Math.
 */
-CalcWidget.evaluate = function(_expression, _answer) {
+CalcWidget.evaluate = function(_expression, _answer, _convert) {
 
     // Global constants and functions
     // Reset each time so they can't be permanantly overridden
@@ -27,26 +28,28 @@ CalcWidget.evaluate = function(_expression, _answer) {
             }
         }
 
-        // Apply conversions.
-        // a! -> factorial(a)
-        // a^b -> pow(a,b)
-        try {
-            var input = new org.antlr.runtime.ANTLRStringStream(_expression);
-            var lexer = new ECMAScript3ExtLexer(input);
-            var tokens = new org.antlr.runtime.CommonTokenStream(lexer);
-            var parser = new ECMAScript3ExtParser(tokens);
-            var t = parser.program().getTree();
-            var n = lexer.getNumberOfSyntaxErrors() + parser.getNumberOfSyntaxErrors();
+        if (_convert) {
+            // Apply conversions.
+            // a! -> factorial(a)
+            // a^b -> pow(a,b)
+            try {
+                var input = new org.antlr.runtime.ANTLRStringStream(_expression);
+                var lexer = new ECMAScript3ExtLexer(input);
+                var tokens = new org.antlr.runtime.CommonTokenStream(lexer);
+                var parser = new ECMAScript3ExtParser(tokens);
+                var t = parser.program().getTree();
+                var n = lexer.getNumberOfSyntaxErrors() + parser.getNumberOfSyntaxErrors();
 
-            if (t != null && n == 0) {
-                var emitter = new ECMAScript3ExtEmitter();
-                emitter.includeWhitespace = false;
-                _expression = emitter.emit(t);
-                //alert("Converted to: " + _expression);
+                if (t != null && n == 0) {
+                    var emitter = new ECMAScript3ExtEmitter();
+                    emitter.includeWhitespace = false;
+                    _expression = emitter.emit(t);
+                    //CalcWidget.log("Converted to: " + _expression);
+                }
             }
-        }
-        catch (e) {
-            alert("ANTLR error: " + e.toString())
+            catch (e) {
+                CalcWidget.log("ANTLR error: " + e.toString())
+            }
         }
     }
 
@@ -205,15 +208,13 @@ CalcWidget.Calc = (function() {
     }
 
     function loadUserVars() {
-        if (window.widget) {
-            var memory = window.widget.preferenceForKey("memory");
-            if (memory !== undefined && memory.length > 0) {
-                try {
-                    CalcWidget.evaluate(memory, 0);
-                }
-                catch (ex) {
-                    // Do something?
-                }
+        var memory = CalcWidget.pref("memory");
+        if (memory != null) {
+            try {
+                CalcWidget.evaluate(memory, 0, false);
+            }
+            catch (ex) {
+                // Do something?
             }
         }
     }
@@ -240,10 +241,16 @@ CalcWidget.Calc = (function() {
             for (var i in window) {
                 if (window.hasOwnProperty(i)) {
                     var isKnown = false;
-                    for (var j in knownMembers) {
-                        if (i === knownMembers[j]) {
-                            isKnown = true;
-                            break;
+                    if (i.startsWith("script") && parseInt(i.substring(6)) > 0) {
+                        // Chrome seems to insert this for an unknown reason
+                        isKnown = true;
+                    }
+                    else {
+                        for (var j in knownMembers) {
+                            if (i === knownMembers[j]) {
+                                isKnown = true;
+                                break;
+                            }
                         }
                     }
                     if (!isKnown) {
@@ -272,9 +279,7 @@ CalcWidget.Calc = (function() {
                 }
             }
             memory = memory.replace(/\n/g, ' ');
-            if (window.widget) {
-                window.widget.setPreferenceForKey(memory, "memory");
-            }
+            CalcWidget.setPref("memory", memory);
         },
 
         clearUserVars: function() {
@@ -293,9 +298,7 @@ CalcWidget.Calc = (function() {
                     }
                 }
             }
-            if (window.widget) {
-                window.widget.setPreferenceForKey(null, "memory");
-            }
+            CalcWidget.setPref("memory", null);
         },
 
         calc: function(expression, addToHistory) {
@@ -313,7 +316,7 @@ CalcWidget.Calc = (function() {
             var answer;
             lastError = false;
             try {
-                answer = CalcWidget.evaluate(expression, lastAnswer);
+                answer = CalcWidget.evaluate(expression, lastAnswer, true);
                 if (answer === undefined) {
                     lastError = true;
                 }

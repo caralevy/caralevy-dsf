@@ -9,6 +9,7 @@
     <target name="init">
         <mkdir dir="build" />
         <mkdir dir="build/Calculate.wdgt" />
+        <mkdir dir="build/html5" />
         <mkdir dir="gen" />
         <condition property="do.gen">
             <or>
@@ -56,6 +57,23 @@
                 <file name="externs.js" />
             </externs>
 
+            <sources dir="src/common">
+                <file name="antlr3-all.js"/>
+                <file name="antlr3-cli.js"/>
+            </sources>
+            
+            <sources dir="gen">
+                <file name="ECMAScript3ExtLexer.js"/>
+                <file name="ECMAScript3ExtParser.js"/>
+            </sources>
+
+            <sources dir="src/common">
+                <file name="ECMAScript3ExtEmitter.js"/>
+                <file name="Util.js"/>
+                <file name="Calc.js"/>
+                <file name="CalcUIBase.js"/>
+            </sources>
+            
             <sources dir="src/widget/AppleClasses">
                 <file name="AppleAnimator.js"/>
                 <file name="AppleButton.js"/>
@@ -65,27 +83,53 @@
                 <file name="AppleSlider.js"/>
             </sources>
 
-            <sources dir="src/common">
-                <file name="Calc.js"/>
-                <file name="antlr3-all.js"/>
-                <file name="antlr3-cli.js"/>
-                <file name="ECMAScript3ExtEmitter.js"/>
-            </sources>
-
-            <sources dir="gen">
-                <file name="ECMAScript3ExtLexer.js"/>
-                <file name="ECMAScript3ExtParser.js"/>
-            </sources>
-            
             <sources dir="src/widget">
                 <file name="CalcUI.js"/>
             </sources>
 
         </jscomp>
 
+        <jscomp compilationLevel="whitespace" warning="verbose"
+            debug="false" output="build/html5/CalculateWidget.js">
+
+            <externs dir="src/common">
+                <file name="externs.js" />
+            </externs>
+
+            <sources dir="src/common">
+                <file name="antlr3-all.js"/>
+                <file name="antlr3-cli.js"/>
+            </sources>
+
+            <sources dir="gen">
+                <file name="ECMAScript3ExtLexer.js"/>
+                <file name="ECMAScript3ExtParser.js"/>
+            </sources>
+
+            <sources dir="src/common">
+                <file name="ECMAScript3ExtEmitter.js"/>
+                <file name="Util.js"/>
+                <file name="Calc.js"/>
+                <file name="CalcUIBase.js"/>
+            </sources>
+
+            <sources dir="src/html5">
+                <file name="CalcUI.js"/>
+            </sources>
+
+        </jscomp>
     </target>
 
     <target name="res" depends="init">
+        <copy todir="build/html5">
+            <fileset dir="res/common"/>
+        </copy>
+        <copy todir="build/html5">
+            <fileset dir="res/html5"/>
+        </copy>
+        <copy todir="build/Calculate.wdgt">
+            <fileset dir="res/common"/>
+        </copy>
         <copy todir="build/Calculate.wdgt">
             <fileset dir="res/widget"/>
         </copy>

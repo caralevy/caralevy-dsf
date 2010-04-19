@@ -1,3 +1,20 @@
+[ ] TODO (HTML5 App):
+    [ ] Use a new keyhandler
+        - answer+1 expansion is broken
+    [ ] Output near the bottom, not near the top (because virtual keyboard causes the top to go off screen)
+    [ ] Get it to work on landscape mode
+    [ ] New keyboard input for touch devices?
+    [ ] NEW UI:
+        - Black background.
+        - Large buttons bug enough for touch (40x40?)
+        - New icon suitable for iPhone
+        - Options/About popup
+        - New Font
+    [ ] Web app - http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html#//apple_ref/doc/uid/TP40002051-CH3-SW3
+        - Caching
+        - Splash screen
+        - Bug: not saving vars
+
 Deployment steps for a new version:
 [ ] Test on Mac OS X 10.5, 10.6
 [ ] Update version number in Calc.html, Info.plist
@@ -6,11 +23,6 @@ Deployment steps for a new version:
 [ ] Update at apple.com
 
 Ports:
-[ ] HTML5 web app, specifically for iPad/iPhone/Android.
-    - Use standard scrollbar, buttons (Can't use AppleClasses because of license)
-    - Tab/Enter keys don't work?
-    - Use HTML5 storage instead of widget prefs?
-    - Alternative to front/back flip
 [ ] Google Gadget, Yahoo Widget, etc.
 
 Ideas requiring a Recursive Descent Parser:
